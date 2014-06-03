@@ -24,5 +24,8 @@ set t_vb=
 set mouse=a
 set fileencoding=utf-8
 
+highlight OverLength ctermbg=red ctermfg=white guibg=#592929
+match OverLength /\%81v.\+/
+
 " .tex -> .pdf on every write
 autocmd BufWritePost *.tex !pdflatex %
