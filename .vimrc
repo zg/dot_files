@@ -29,3 +29,8 @@ match OverLength /\%81v.\+/
 
 " .tex -> .pdf on every write
 autocmd BufWritePost *.tex !pdflatex %
+
+command WQ wq
+command Wq wq
+command W w
+command Q q
