@@ -64,7 +64,7 @@ fi
 SAVEHIST=100000
 
 # self-authored programs of use
-export PATH=$PATH:/home/z/bin/
+export PATH=$PATH:~/bin/
 
 # used primarily when yaourt wants me to
 # manually select packages to update
