@@ -66,6 +66,9 @@ SAVEHIST=100000
 # self-authored programs of use
 export PATH=$PATH:~/bin/
 
+alias ccb='xclip -selection c'
+alias pcb='xclip -selection clipboard -o'
+
 # used primarily when yaourt wants me to
 # manually select packages to update
 export EDITOR=vim
