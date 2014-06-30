@@ -73,5 +73,6 @@ alias pcb='xclip -selection clipboard -o'
 # manually select packages to update
 export EDITOR=vim
 export BROWSER=chromium
+export PS1='[%n@%m %c]$ '
 
 [[ -z $DISPLAY && $XDG_VTNR -eq 1 ]] && exec startx
