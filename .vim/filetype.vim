@@ -4,4 +4,5 @@ endif
 augroup filetypedetect
   au! BufNewFile,BufRead *.csv setf csv
   au! BufNewFile,BufRead *.md setf mkd
+  au! BufNewFile,BufRead *.prolog setf prolog
 augroup END
