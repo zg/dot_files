@@ -11,6 +11,10 @@ stty ixoff -ixon
 # all those nice features are better
 # than having to type an extra letter!!
 alias vi='vim'
+alias ls='ls -G'
+alias ll='ls -lG'
+alias gitlog="git log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
+alias glist='for ref in $(git for-each-ref --sort=-committerdate --format="%(refname)" refs/heads/ refs/remotes ); do git log -n1 $ref --pretty=format:"%Cgreen%cr%Creset %C(yellow)%d%Creset %C(bold blue)<%an>%Creset%n" | cat ; done | awk '"'! a["'$0'"]++'"
 
 # make sure keys are configured correctly
 typeset -A key
