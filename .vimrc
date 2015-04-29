@@ -30,6 +30,9 @@ call matchadd('ColorColumn', '\%81v', 100)
 " .tex -> .pdf on every write
 autocmd BufWritePost *.tex !pdflatex %
 
+" enter working directory of current file
+autocmd BufEnter * silent! lcd %:p:h
+
 command WQ wq
 command Wq wq
 command W w

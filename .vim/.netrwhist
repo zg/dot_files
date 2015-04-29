@@ -1,7 +1,0 @@
-let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =5
-let g:netrw_dirhist_1='/Users/zg/grading/lab04/77334-1297225 - Collins, Andrew - BankAccounts'
-let g:netrw_dirhist_2='/Users/zg/sandbox/creative-scala/node_modules/grunt'
-let g:netrw_dirhist_3='/Users/zg/sigcse/MyPlayground.playground'
-let g:netrw_dirhist_4='/Users/zg/repos/dot_files/.vim/ftplugin'
-let g:netrw_dirhist_5='/Users/zg/repos/dot_files/.vim/ftdetect'
