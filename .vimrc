@@ -25,7 +25,7 @@ set mouse=a
 set fileencoding=utf-8
 
 highlight ColorColumn ctermbg=red
-call matchadd('ColorColumn', '\%81v', 100)
+call matchadd('ColorColumn', '\%81v', -1)
 
 " .tex -> .pdf on every write
 autocmd BufWritePost *.tex !pdflatex %
