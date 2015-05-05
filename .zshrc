@@ -8,8 +8,7 @@ prompt redhat
 stty ixany
 stty ixoff -ixon
 
-# all those nice features are better
-# than having to type an extra letter!!
+alias c='clear'
 alias vi='vim'
 alias ls='ls -G'
 alias ll='ls -laG'
