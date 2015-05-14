@@ -24,6 +24,8 @@ set t_vb=
 set mouse=a
 set fileencoding=utf-8
 
+set paste
+
 highlight ColorColumn ctermbg=red
 call matchadd('ColorColumn', '\%81v', -1)
 

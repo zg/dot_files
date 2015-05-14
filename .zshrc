@@ -16,6 +16,11 @@ alias gitlog="git log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow
 alias glist='for ref in $(git for-each-ref --sort=-committerdate --format="%(refname)" refs/heads/ refs/remotes ); do git log -n1 $ref --pretty=format:"%Cgreen%cr%Creset %C(yellow)%d%Creset %C(bold blue)<%an>%Creset%n" | cat ; done | awk '"'! a["'$0'"]++'"
 
 # make sure keys are configured correctly
+
+bindkey -e
+bindkey '^[[1;9C' forward-word
+bindkey '^[[1;9D' backward-word
+
 typeset -A key
 
 key[Home]=${terminfo[khome]}
