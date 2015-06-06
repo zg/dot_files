@@ -5,7 +5,6 @@ set number
 set ruler
 set visualbell
 set nocompatible
-filetype plugin indent on
 set tabstop=4
 set shiftwidth=4
 set expandtab
@@ -23,8 +22,14 @@ set cmdheight=2
 set t_vb=
 set mouse=a
 set fileencoding=utf-8
+set backupdir=~/.vim/tmp//
+set directory=~/.vim/tmp//
+set viminfo+=n~/.vim/tmp/viminfo
+set undodir=~/.vim/tmp/
 
 set paste
+
+filetype plugin indent on
 
 highlight ColorColumn ctermbg=red
 call matchadd('ColorColumn', '\%81v', -1)
@@ -35,6 +40,7 @@ autocmd BufWritePost *.tex !pdflatex %
 " enter working directory of current file
 autocmd BufEnter * silent! lcd %:p:h
 
+command E e
 command WQ wq
 command Wq wq
 command W w
