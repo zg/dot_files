@@ -90,7 +90,7 @@ else
 fi
 SAVEHIST=100000
 
-git config --global alias.unstage='reset HEAD --'
-git config --global alias.last='log -1 HEAD'
+git config --global alias.unstage 'reset HEAD --'
+git config --global alias.last 'log -1 HEAD'
 
 [[ -z $DISPLAY && $XDG_VTNR -eq 1 ]] && exec startx
