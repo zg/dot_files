@@ -24,6 +24,16 @@ alias gitlog="git log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow
 alias glist='for ref in $(git for-each-ref --sort=-committerdate --format="%(refname)" refs/heads/ refs/remotes ); do git log -n1 $ref --pretty=format:"%Cgreen%cr%Creset %C(yellow)%d%Creset %C(bold blue)<%an>%Creset%n" | cat ; done | awk '"'! a["'$0'"]++'"
 alias gb='for branch in $(git for-each-ref --format="%(refname)" refs/heads/ | sed "s|refs/heads/||"); do desc=$(git config branch.$branch.description); if [[ $branch == $(git rev-parse --abbrev-ref HEAD) ]]; then branch="* \033[0;32m$branch\033[0m"; else branch="  $branch" fi; echo -e "$branch \033[0;36m$desc\033[0m" ; done'
 
+function gitrmfromeverywhere() {
+  if [ $# -ne 1 ]; then
+    echo 'usage: gitrmfromeverywhere path'
+  else
+    git filter-branch --force --index-filter 'git rm --cached --ignore-unmatch $1' --prune-empty --tag-name-filter cat -- --all
+    git push origin --force --all
+    git push origin --force --tags
+  fi
+}
+
 # make sure keys are configured correctly
 
 bindkey -e
