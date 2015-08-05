@@ -40,6 +40,10 @@ autocmd BufWritePost *.tex !pdflatex %
 " enter working directory of current file
 autocmd BufEnter * silent! lcd %:p:h
 
+" indent by two spaces for html and javascript
+autocmd Filetype html setlocal ts=2 sts=2 sw=2
+autocmd Filetype javascript setlocal ts=2 sts=2 sw=2
+
 command E e
 command WQ wq
 command Wq wq
