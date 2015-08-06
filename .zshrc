@@ -8,10 +8,11 @@ prompt redhat
 stty ixany
 stty ixoff -ixon
 
-export PATH=$PATH:~/bin/
+export PATH=$PATH:$GOPATH/bin:~/bin/
 export EDITOR=vim
 export BROWSER=chromium
 export PS1='[%n@%m %c]$ '
+export GOPATH=$HOME/go
 
 alias ccb='xclip -selection c'
 alias pcb='xclip -selection clipboard -o'
