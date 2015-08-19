@@ -28,6 +28,9 @@ alias gitlog="git log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow
 # lists each branch with age, name, and last committer
 alias glist='for ref in $(git for-each-ref --sort=-committerdate --format="%(refname)" refs/heads/ refs/remotes ); do git log -n1 $ref --pretty=format:"%Cgreen%cr%Creset %C(yellow)%d%Creset %C(bold blue)<%an>%Creset%n" | cat ; done | awk '"'! a["'$0'"]++'"
 
+# list files for a specific commit
+alias gchange='git diff-tree --no-commit-id --name-only -r'
+
 # `git branch` with the branch description (`git branch --edit-description <branch>`)
 alias gb='for branch in $(git for-each-ref --format="%(refname)" refs/heads/ | sed "s|refs/heads/||"); do desc=$(git config branch.$branch.description); if [[ $branch == $(git rev-parse --abbrev-ref HEAD) ]]; then branch="* \033[0;32m$branch\033[0m"; else branch="  $branch" fi; echo -e "$branch \033[0;36m$desc\033[0m" ; done'
 
