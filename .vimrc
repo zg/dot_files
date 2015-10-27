@@ -2,7 +2,7 @@
 " from github.com/dahu/LearnVim
 syntax on
 set number
-set ruler
+set statusline=%t[%{strlen(&fenc)?&fenc:'none'},%{&ff}]%h%m%r%y%=%c/%L,%l/%L\ %P
 set visualbell
 set nocompatible
 set tabstop=4
@@ -28,6 +28,8 @@ set viminfo+=n~/.vim/tmp/viminfo
 set undodir=~/.vim/tmp/
 
 set paste
+
+execute pathogen#infect()
 
 filetype plugin indent on
 

@@ -1,9 +1,3 @@
-# some initialization stuff
-autoload -U compinit promptinit
-compinit
-promptinit
-prompt redhat
-
 # turn off Ctrl+S (XOFF)
 stty ixany
 stty ixoff -ixon
@@ -31,8 +25,11 @@ alias glist='for ref in $(git for-each-ref --sort=-committerdate --format="%(ref
 # list files for a specific commit
 alias gchange='git diff-tree --no-commit-id --name-only -r'
 
-# `git branch` with the branch description (`git branch --edit-description <branch>`)
+# `git branch` with branch desc (`git branch --edit-description <branch>`)
 alias gb='for branch in $(git for-each-ref --format="%(refname)" refs/heads/ | sed "s|refs/heads/||"); do desc=$(git config branch.$branch.description); if [[ $branch == $(git rev-parse --abbrev-ref HEAD) ]]; then branch="* \033[0;32m$branch\033[0m"; else branch="  $branch" fi; echo -e "$branch \033[0;36m$desc\033[0m" ; done'
+
+# automatically deletes files from the repo that have already been deleted
+alias grm='git ls-files --deleted -z | xargs -0 git rm'
 
 # WARNING: removes a given file from _EVERY_ commit in a repo.
 # This is especially useful for sensitive data that gets added
@@ -47,6 +44,9 @@ function gitrmfromeverywhere() {
     git push origin --force --tags
   fi
 }
+
+git config --global alias.unstage 'reset HEAD --'
+git config --global alias.last 'log -1 HEAD'
 
 # make sure keys are configured correctly
 
@@ -93,6 +93,10 @@ if (( ${+terminfo[smkx]} )) && (( ${+terminfo[rmkx]} )); then
     zle -N zle-line-finish
 fi
 
+# write to history immediately after each
+# command gets run
+setopt INC_APPEND_HISTORY
+
 # This is useful when I want to find a command
 # I've previously used (i.e. tar/ps params),
 # or Ctrl+R
@@ -103,8 +107,3 @@ else
     HISTFILE=~/.history
 fi
 SAVEHIST=100000
-
-git config --global alias.unstage 'reset HEAD --'
-git config --global alias.last 'log -1 HEAD'
-
-[[ -z $DISPLAY && $XDG_VTNR -eq 1 ]] && exec startx
