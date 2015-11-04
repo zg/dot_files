@@ -16,6 +16,11 @@ alias vi='vim'
 alias ls='ls -G'
 alias ll='ls -laG'
 
+alias lsd="ls -ld *" # show directories
+alias 'dirdus=du -sckx * | sort -nr' #directories sorted by size
+alias 'dus=du -kx | sort -nr | less' #files sorted by size
+alias tree="ls -R | grep ":$" | sed -e 's/:$//' -e 's/[^-][^\/]*\//--/g' -e 's/^/   /' -e 's/-/|/'"
+
 # one-liner for every commit
 alias gitlog="git log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue) <%aN|%G?>%Creset' --abbrev-commit"
 
@@ -30,6 +35,16 @@ alias gb='for branch in $(git for-each-ref --format="%(refname)" refs/heads/ | s
 
 # automatically deletes files from the repo that have already been deleted
 alias grm='git ls-files --deleted -z | xargs -0 git rm'
+
+if [[ $(uname) = 'Darwin' ]]; then
+    # alias to show all Mac App store apps
+    alias apps='mdfind "kMDItemAppStoreHasReceipt=1"'
+    # refresh brew by upgrading all outdated casks
+    alias refreshbrew='brew outdated | while read cask; do brew upgrade $cask; done'
+    # rebuild Launch Services to remove duplicate entries on Open With menu
+    alias rebuildopenwith='/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -kill -r -domain local -domain system -domain user'
+    alias defhist='history 1 | grep "defaults"'
+fi
 
 # WARNING: removes a given file from _EVERY_ commit in a repo.
 # This is especially useful for sensitive data that gets added
