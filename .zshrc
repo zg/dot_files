@@ -2,11 +2,9 @@
 stty ixany
 stty ixoff -ixon
 
-export PATH=$PATH:$GOPATH/bin:~/bin/
 export EDITOR=vim
 export BROWSER=chromium
 export PS1='[%n@%m %c]$ '
-export GOPATH=$HOME/go
 
 alias ccb='xclip -selection c'
 alias pcb='xclip -selection clipboard -o'
@@ -17,8 +15,8 @@ alias ls='ls -G'
 alias ll='ls -laG'
 
 alias lsd="ls -ld *" # show directories
-alias 'dirdus=du -sckx * | sort -nr' #directories sorted by size
-alias 'dus=du -kx | sort -nr | less' #files sorted by size
+alias dirdus='du -sckx * | sort -nr' #directories sorted by size
+alias dus='du -kx | sort -nr | less' #files sorted by size
 alias tree="ls -R | grep ":$" | sed -e 's/:$//' -e 's/[^-][^\/]*\//--/g' -e 's/^/   /' -e 's/-/|/'"
 
 # one-liner for every commit
@@ -37,6 +35,8 @@ alias gb='for branch in $(git for-each-ref --format="%(refname)" refs/heads/ | s
 alias grm='git ls-files --deleted -z | xargs -0 git rm'
 
 if [[ $(uname) = 'Darwin' ]]; then
+    export PATH="/usr/local/bin:/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/sbin:/opt/X11/bin:/usr/local/MacGPG2/bin:/Library/TeX/texbin:/Users/zg/bin"
+    alias bu='brew update; brew upgrade; brew cleanup; brew doctor'
     # alias to show all Mac App store apps
     alias apps='mdfind "kMDItemAppStoreHasReceipt=1"'
     # refresh brew by upgrading all outdated casks

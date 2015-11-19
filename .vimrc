@@ -20,7 +20,7 @@ set wildmode=longest:full,full
 set showcmd
 set cmdheight=2
 set t_vb=
-set mouse=a
+set mouse=""
 set fileencoding=utf-8
 set backupdir=~/.vim/tmp//
 set directory=~/.vim/tmp//
