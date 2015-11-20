@@ -34,7 +34,7 @@ alias gb='for branch in $(git for-each-ref --format="%(refname)" refs/heads/ | s
 # automatically deletes files from the repo that have already been deleted
 alias grm='git ls-files --deleted -z | xargs -0 git rm'
 
-if [[ $(uname) = 'Darwin' ]]; then
+if [[ "$(uname)" == "Darwin" ]]; then
     export PATH="/usr/local/bin:/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/sbin:/opt/X11/bin:/usr/local/MacGPG2/bin:/Library/TeX/texbin:/Users/zg/bin"
     alias bu='brew update; brew upgrade; brew cleanup; brew doctor'
     # alias to show all Mac App store apps
