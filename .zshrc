@@ -1,3 +1,6 @@
+fpath=(~/.zsh/completions $fpath) 
+autoload -U compinit && compinit
+
 # turn off Ctrl+S (XOFF)
 stty ixany
 stty ixoff -ixon
@@ -9,7 +12,6 @@ export PS1='[%n@%m %c]$ '
 alias ccb='xclip -selection c'
 alias pcb='xclip -selection clipboard -o'
 
-alias c='clear'
 alias vi='vim'
 alias ls='ls -G'
 alias ll='ls -laG'
@@ -36,6 +38,7 @@ alias grm='git ls-files --deleted -z | xargs -0 git rm'
 
 if [[ "$(uname)" == "Darwin" ]]; then
     export PATH="/usr/local/bin:/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/sbin:/opt/X11/bin:/usr/local/MacGPG2/bin:/Library/TeX/texbin:/Users/zg/bin"
+    alias git='hub'
     alias bu='brew update; brew upgrade; brew cleanup; brew doctor'
     # alias to show all Mac App store apps
     alias apps='mdfind "kMDItemAppStoreHasReceipt=1"'
