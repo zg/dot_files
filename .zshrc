@@ -37,7 +37,7 @@ alias gb='for branch in $(git for-each-ref --format="%(refname)" refs/heads/ | s
 alias grm='git ls-files --deleted -z | xargs -0 git rm'
 
 if [[ "$(uname)" == "Darwin" ]]; then
-    export PATH="/usr/local/bin:/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/sbin:/opt/X11/bin:/usr/local/MacGPG2/bin:/Library/TeX/texbin:/Users/zg/bin"
+    export PATH="/usr/local/bin:/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/sbin:/opt/X11/bin:/usr/local/MacGPG2/bin:/Library/TeX/texbin:/Users/zg/bin:/Users/zg/bin/bc"
     alias git='hub'
     alias bu='brew update; brew upgrade; brew cleanup; brew doctor'
     # alias to show all Mac App store apps
@@ -53,7 +53,7 @@ fi
 # This is especially useful for sensitive data that gets added
 # to the repository by accident. Contact GitHub support if you
 # need to also remove cached data.
-function gitrmfromeverywhere() {
+gitrmfromeverywhere() {
   if [ $# -ne 1 ]; then
     echo 'usage: gitrmfromeverywhere path'
   else
@@ -61,6 +61,11 @@ function gitrmfromeverywhere() {
     git push origin --force --all
     git push origin --force --tags
   fi
+}
+
+printescaped() {
+  setopt localoptions extendedglob
+  echo ${1//(#b)(?)/\&\#$(( #match ))\;}
 }
 
 git config --global alias.unstage 'reset HEAD --'
