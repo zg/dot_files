@@ -7,7 +7,7 @@ stty ixoff -ixon
 
 export EDITOR=vim
 export BROWSER=chromium
-export PS1='[%n@%m %c]$ '
+export PS1='$ '
 
 alias ccb='xclip -selection c'
 alias pcb='xclip -selection clipboard -o'
@@ -38,6 +38,7 @@ alias grm='git ls-files --deleted -z | xargs -0 git rm'
 
 if [[ "$(uname)" == "Darwin" ]]; then
     export PATH="/usr/local/bin:/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/sbin:/opt/X11/bin:/usr/local/MacGPG2/bin:/Library/TeX/texbin:/Users/zg/bin:/Users/zg/bin/bc"
+    export GOPATH="$HOME/work"
     alias git='hub'
     alias bu='brew update; brew upgrade; brew cleanup; brew doctor'
     # alias to show all Mac App store apps
