@@ -8,6 +8,8 @@ stty ixoff -ixon
 export EDITOR=vim
 export BROWSER=chromium
 export PS1='$ '
+export GPG_TTY=$(tty)
+export HOMEBREW_GITHUB_API_TOKEN="7b53be9bc5eb4f74d68c86209c4c0e75c6ab2ced"
 
 alias ccb='xclip -selection c'
 alias pcb='xclip -selection clipboard -o'
@@ -37,17 +39,53 @@ alias gb='for branch in $(git for-each-ref --format="%(refname)" refs/heads/ | s
 alias grm='git ls-files --deleted -z | xargs -0 git rm'
 
 if [[ "$(uname)" == "Darwin" ]]; then
-    export PATH="/usr/local/bin:/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/sbin:/opt/X11/bin:/usr/local/MacGPG2/bin:/Library/TeX/texbin:/Users/zg/bin:/Users/zg/bin/bc"
     export GOPATH="$HOME/work"
+    export PATH="/usr/local/bin:/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/sbin:/opt/X11/bin:/usr/local/MacGPG2/bin:/Library/TeX/texbin:/Users/zg/bin:/Users/zg/bin/bc:$GOPATH/bin"
+    export COVERALLS_TOKEN="lNrhQzvoDHDcq48cPBuOqQRNkUflpZykK"
     alias git='hub'
-    alias bu='brew update; brew upgrade; brew cleanup; brew doctor'
+    alias bu='brew update --verbose; brew upgrade --verbose; brew cleanup --prune=0 --verbose; brew doctor --verbose'
     # alias to show all Mac App store apps
     alias apps='mdfind "kMDItemAppStoreHasReceipt=1"'
-    # refresh brew by upgrading all outdated casks
-    alias refreshbrew='brew outdated | while read cask; do brew upgrade $cask; done'
     # rebuild Launch Services to remove duplicate entries on Open With menu
     alias rebuildopenwith='/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -kill -r -domain local -domain system -domain user'
     alias defhist='history 1 | grep "defaults"'
+
+    rsexp() {
+      local lvl=-1;
+      if [ $# -eq 1 ]; then
+        lvl=$1
+      else
+        lvl=$(cat -)
+      fi
+      if (( $(echo "$lvl == -1" | bc -l) )); then
+        echo 'usage: rsexp lvl'
+      elif (( $(echo "$lvl == 1" | bc -l) )); then
+        echo 0
+      else
+        echo "floor(1/4*(0$(for i in {1..$((lvl - 1))};do echo -n "+floor($i+300*pow(2,$i/7))";done)))" | bc -l ~/repos/bc/code/funcs.bc
+      fi
+    }
+
+    rslvl() {
+      local exp=-1;
+      if [ $# -eq 1 ]; then
+        exp=$1
+      else
+        exp=$(cat -)
+      fi
+      if (( $(echo "$exp == -1" | bc -l) )); then
+        echo 'usage: rslvl exp'
+      elif (( $(echo "$exp < 83" | bc -l) )); then
+        echo 1
+      else
+        for lvl in {1..120}; do
+          if (( $(echo "$exp <= $(rsexp $lvl 2>/dev/null)" | bc -l) )); then
+            echo $(expr $lvl - 1)
+            break
+          fi
+        done
+      fi
+    }
 fi
 
 # WARNING: removes a given file from _EVERY_ commit in a repo.
