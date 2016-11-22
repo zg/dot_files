@@ -20,6 +20,7 @@ set showcmd
 set cmdheight=2
 set t_vb=
 set mouse=""
+set clipboard=unnamed
 set fileencoding=utf-8
 set backupdir=~/.vim/tmp//
 set directory=~/.vim/tmp//
