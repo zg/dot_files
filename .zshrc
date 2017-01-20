@@ -5,11 +5,12 @@ autoload -U compinit && compinit
 stty ixany
 stty ixoff -ixon
 
+export LANG=en_US.UTF-8
 export EDITOR=vim
 export BROWSER=chromium
 export PS1='$ '
 export GPG_TTY=$(tty)
-export HOMEBREW_GITHUB_API_TOKEN="7b53be9bc5eb4f74d68c86209c4c0e75c6ab2ced"
+export MAIL=$HOME/Maildir
 
 alias ccb='xclip -selection c'
 alias pcb='xclip -selection clipboard -o'
@@ -62,25 +63,25 @@ if [[ "$(uname)" == "Darwin" ]]; then
       elif (( $(echo "$lvl == 1" | bc -l) )); then
         echo 0
       else
-        echo "floor(1/4*(0$(for i in {1..$((lvl - 1))};do echo -n "+floor($i+300*pow(2,$i/7))";done)))" | bc -l ~/repos/bc/code/funcs.bc
+        echo "l=$lvl;sum=0;for(n=1;n<=l-1;n++){sum+=floor(n+300*pow(2,n/7))};floor(1/4*sum)" | bc -l ~/repos/bc/code/funcs.bc
       fi
     }
 
     rslvl() {
+      # it's better to make these static vs looping through and check between two bounds
+      local exps=(0 83 174 276 388 512 650 801 969 1154 1358 1584 1833 2107 2411 2746 3115 3523 3973 4470 5018 5624 6291 7028 7842 8740 9730 10824 12031 13363 14833 16456 18247 20224 22406 24815 27473 30408 33648 37224 41171 45529 50339 55649 61512 67983 75127 83014 91721 101333 111945 123660 136594 150872 166636 184040 203254 224466 247886 273742 302288 333804 368599 407015 449428 496254 547953 605032 668051 737627 814445 899257 992895 1096278 1210421 1336443 1475581 1629200 1798808 1986068 2192818 2421087 2673114 2951373 3258594 3597792 3972294 4385776 4842295 5346332 5902831 6517253 7195629 7944614 8771558 9684577 10692629 11805606 13034431 14391160 15889109 17542976 19368992 21385073 23611006 26068632 28782069 31777943 35085654 38737661 42769801 47221641 52136869 57563718 63555443 70170840 77474828 85539082 94442737 104273167);
       local exp=-1;
       if [ $# -eq 1 ]; then
         exp=$1
       else
         exp=$(cat -)
       fi
-      if (( $(echo "$exp == -1" | bc -l) )); then
+      if [ "$exp" -lt 0 ]; then
         echo 'usage: rslvl exp'
-      elif (( $(echo "$exp < 83" | bc -l) )); then
-        echo 1
       else
         for lvl in {1..120}; do
-          if (( $(echo "$exp <= $(rsexp $lvl 2>/dev/null)" | bc -l) )); then
-            echo $(expr $lvl - 1)
+          if [ "$exp" -ge "$exps[$lvl]" -a "$exp" -lt "$exps[$lvl+1]" ]; then
+            echo $lvl
             break
           fi
         done
