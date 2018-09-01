@@ -9,7 +9,10 @@ export LANG=en_US.UTF-8
 export EDITOR=vim
 export BROWSER=chromium
 export PS1='$ '
+export GNUPGHOME="$HOME/.gnupg"
 export GPG_TTY=$(tty)
+export SSH_AUTH_SOCK="$HOME/.gnupg/S.gpg-agent.ssh"
+gpgconf --launch gpg-agent
 export MAIL=$HOME/Maildir
 
 alias ccb='xclip -selection c'
@@ -18,6 +21,8 @@ alias pcb='xclip -selection clipboard -o'
 alias vi='vim'
 alias ls='ls -G'
 alias ll='ls -laG'
+
+alias sbox='cd ~/sandbox/'
 
 alias lsd="ls -ld *" # show directories
 alias dirdus='du -sckx * | sort -nr' #directories sorted by size
@@ -41,10 +46,10 @@ alias grm='git ls-files --deleted -z | xargs -0 git rm'
 
 if [[ "$(uname)" == "Darwin" ]]; then
     export GOPATH="$HOME/work"
-    export PATH="/usr/local/bin:/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/sbin:/opt/X11/bin:/usr/local/MacGPG2/bin:/Library/TeX/texbin:/Users/zg/bin:/Users/zg/bin/bc:$GOPATH/bin"
+    export PATH="/usr/local/bin:/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/sbin:/opt/X11/bin:/usr/local/MacGPG2/bin:/Library/TeX/texbin:/Users/zg/bin:/Users/zg/bin/bc:$GOPATH/bin:/Users/zg/miniconda3/bin"
     export COVERALLS_TOKEN="lNrhQzvoDHDcq48cPBuOqQRNkUflpZykK"
     alias git='hub'
-    alias bu='brew update --verbose; brew upgrade --verbose; brew cleanup --prune=0 --verbose; brew doctor --verbose'
+    alias bu='brew update --verbose; brew upgrade --verbose; brew cleanup --prune=0; brew doctor --verbose'
     # alias to show all Mac App store apps
     alias apps='mdfind "kMDItemAppStoreHasReceipt=1"'
     # rebuild Launch Services to remove duplicate entries on Open With menu

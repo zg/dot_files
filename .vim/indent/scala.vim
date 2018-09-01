@@ -1,3 +1,5 @@
+if !exists('g:polyglot_disabled') || index(g:polyglot_disabled, 'scala') == -1
+  
 " Vim indent file
 " Language         : Scala (http://scala-lang.org/)
 " Original Author  : Stefan Matthias Aust
@@ -9,13 +11,9 @@ if exists("b:did_indent")
 endif
 let b:did_indent = 1
 
+setlocal autoindent
 setlocal indentexpr=GetScalaIndent()
 setlocal indentkeys=0{,0},0),!^F,<>>,o,O,e,=case,<CR>
-setlocal autoindent
-setlocal softtabstop=2
-setlocal tabstop=2
-setlocal shiftwidth=2
-setlocal expandtab
 
 if exists("*GetScalaIndent")
   finish
@@ -380,12 +378,17 @@ function! GetScalaIndent()
   let prevline = scala#GetLine(prevlnum)
   let curlnum = v:lnum
   let curline = scala#GetLine(curlnum)
+  if get(g:, 'scala_scaladoc_indent', 0)
+    let star_indent = 2
+  else
+    let star_indent = 1
+  end
 
   if prevline =~ '^\s*/\*\*'
     if prevline =~ '\*/\s*$'
       return ind
     else
-      return ind + 1
+      return ind + star_indent
     endif
   endif
 
@@ -540,7 +543,7 @@ function! GetScalaIndent()
   if prevline =~ '^\s*\*/'
    \ || prevline =~ '*/\s*$'
     call scala#ConditionalConfirm("18")
-    let ind = ind - 1
+    let ind = ind - star_indent
   endif
 
   if scala#LineEndsInIncomplete(prevline)
@@ -597,5 +600,8 @@ function! GetScalaIndent()
 
   return ind
 endfunction
-" vim:set ts=2 sts=2 sw=2:
+
+" vim:set sw=2 sts=2 ts=8 et:
 " vim600:fdm=marker fdl=1 fdc=0:
+
+endif
